@@ -1,15 +1,29 @@
 package com.bezkoder.spring.security.postgresql.models;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
-@Table( name = "messages")
+@Table(name = "messages")
 public class Message {
-@Id
-@GeneratedValue(strategy = GenerationType.IDENTITY)
-private Long id;
-private String content;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
+    private String content;
+
+    @ManyToOne
+    @JoinColumn(name = "sender_id")
+    private User sender;
+
+    @ManyToOne
+    @JoinColumn(name = "receiver_id")
+    private User receiver;
+
+    @Column(name = "timestamp", nullable = false)
+    private LocalDateTime timestamp;
+
+    // Getters and Setters
     public Long getId() {
         return id;
     }
@@ -42,22 +56,18 @@ private String content;
         this.receiver = receiver;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "sender_id")
-private User sender;
-    @ManyToOne
-    @JoinColumn(name = "receiver_id")
-private User receiver;
+    public LocalDateTime getTimestamp() {
+        return timestamp;
+    }
 
+    public void setTimestamp(LocalDateTime timestamp) {
+        this.timestamp = timestamp;
+    }
 
-
-
-
-
-
-
-
-
-
-
+    @PrePersist
+    public void prePersist() {
+        if (timestamp == null) {
+            timestamp = LocalDateTime.now();
+        }
+    }
 }

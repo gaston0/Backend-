@@ -1,6 +1,7 @@
 package com.bezkoder.spring.security.postgresql.service;
 
 import com.bezkoder.spring.security.postgresql.Dto.*;
+import com.bezkoder.spring.security.postgresql.controllers.QuestionRequestWrapper;
 import com.bezkoder.spring.security.postgresql.models.*;
 import com.bezkoder.spring.security.postgresql.payload.request.AnswerRequest;
 import com.bezkoder.spring.security.postgresql.payload.request.QuestionRequest;
@@ -24,7 +25,7 @@ public interface QuestionService {
     public void incrementViewCount(Long questionId);
 
 
-    Question updateQuestion(Long questionId, QuestionRequest questionRequest, MultipartFile file);
+    Question updateQuestion(Long questionId, QuestionRequestWrapper questionRequestWrapper, MultipartFile file);
     void deleteQuestion(Long questionId);
     Answer getAnswerById(Long questionId, Long answerId);
     Answer updateAnswer(Long questionId, Long answerId, AnswerRequest answerRequest);
@@ -40,8 +41,9 @@ public interface QuestionService {
     List<Question> getQuestionsWithAnswers();
     List<Question> getQuestionsWithoutAnswers();
     List<Question> getQuestionsSortedByVotes();
-    List<Question> findQuestionsByUserIdAndDateRange(Long userId, Date startDate, Date endDate);
-    List<Answer> findAnswersByUserIdAndDateRange(Long userId, Date startDate, Date endDate);
+    List<QuestionDto> findQuestionsByUserIdAndDateRange(Long userId, Date startDate, Date endDate);
+    List<AnswerDto> findAnswersByUserIdAndDateRange(Long userId, Date startDate, Date endDate);
+
     Map<Long, Integer> getTotalVotesForAnswers(List<Long> answerIds) ;
 
     public AnswerDto mapAnswerToDto(Answer answer);

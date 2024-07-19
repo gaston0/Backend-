@@ -77,4 +77,14 @@ public class AnswerDto {
 
     private String createdAt;
     private String updatedAt;
+
+    public Long getQuestionId() {
+        return questionId;
+    }
+
+    public void setQuestionId(Long questionId) {
+        this.questionId = questionId;
+    }
+
+    private Long questionId;
 }

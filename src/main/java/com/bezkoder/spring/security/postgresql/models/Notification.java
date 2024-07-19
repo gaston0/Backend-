@@ -15,6 +15,7 @@ public class Notification {
     private User user;
     private String content;
 
+
     public Long getId() {
         return id;
     }
@@ -58,4 +59,26 @@ public class Notification {
     private boolean isRead;
 
     private LocalDateTime createdAt;
+
+    public Long getQuestionId() {
+        return questionId;
+    }
+
+    public Long getAnswerId() {
+        return answerId;
+    }
+
+    public void setAnswerId(Long answerId) {
+        this.answerId = answerId;
+    }
+
+    public void setQuestionId(Long questionId) {
+        this.questionId = questionId;
+    }
+
+    @Column(name = "question_id")
+    private Long questionId;
+
+    @Column(name = "answer_id")
+    private Long answerId;
 }
